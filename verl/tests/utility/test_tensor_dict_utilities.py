@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import random
 import pytest
 import torch
 from tensordict import TensorDict
@@ -21,6 +20,7 @@ from verl.protocol import union_tensor_dict, union_numpy_dict
 
 from verl import DataProto
 import numpy as np
+import secrets
 
 
 def test_union_tensor_dict():
@@ -65,7 +65,7 @@ def test_tensor_dict_constructor():
 
 def test_tensor_dict_make_iterator():
     obs = torch.randn(100, 10)
-    labels = [random.choice(['abc', 'cde']) for _ in range(100)]
+    labels = [secrets.choice(['abc', 'cde']) for _ in range(100)]
     dataset = DataProto.from_dict(tensors={'obs': obs}, non_tensors={'labels': labels})
 
     data_iter_1 = dataset.make_iterator(mini_batch_size=10, epochs=2, seed=1)

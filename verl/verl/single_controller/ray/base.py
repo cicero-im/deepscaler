@@ -22,15 +22,15 @@ from ray.util.scheduling_strategies import PlacementGroupSchedulingStrategy, Nod
 from ray.experimental.state.api import get_actor
 
 from verl.single_controller.base import WorkerGroup, ResourcePool, ClassWithInitArgs, Worker
+import secrets
 
 __all__ = ['Worker']
 
 
 def get_random_string(length: int) -> str:
-    import random
     import string
     letters_digits = string.ascii_letters + string.digits
-    return ''.join(random.choice(letters_digits) for _ in range(length))
+    return ''.join(secrets.choice(letters_digits) for _ in range(length))
 
 
 def func_generator(self, method_name, dispatch_fn, collect_fn, execute_fn, blocking):
