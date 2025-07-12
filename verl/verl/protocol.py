@@ -28,6 +28,7 @@ from tensordict import TensorDict
 from torch.utils.data import DataLoader, Dataset
 
 from verl.utils.py_functional import union_two_dict
+import fickling
 
 __all__ = ['DataProto', 'union_tensor_dict']
 
@@ -225,7 +226,7 @@ class DataProto:
     @staticmethod
     def load_from_disk(filepath) -> 'DataProto':
         with open(filepath, 'rb') as f:
-            data = pickle.load(f)
+            data = fickling.load(f)
             return data
 
     def print_size(self, prefix=""):
