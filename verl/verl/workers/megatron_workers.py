@@ -39,6 +39,7 @@ from verl.utils import hf_tokenizer
 
 from megatron.core import parallel_state as mpu
 from megatron.core import ModelParallelConfig
+import secrets
 
 logger = logging.getLogger(__file__)
 logger.setLevel(os.getenv('VERL_PPO_LOGGING_LEVEL', 'WARN'))
@@ -47,10 +48,9 @@ logger.setLevel(os.getenv('VERL_PPO_LOGGING_LEVEL', 'WARN'))
 def set_random_seed(seed):
     import torch
     import numpy as np
-    import random
     torch.manual_seed(seed)
     np.random.seed(seed)
-    random.seed(seed)
+    secrets.SystemRandom().seed(seed)
     if torch.cuda.device_count() > 0:
         from megatron.core import tensor_parallel
         tensor_parallel.model_parallel_cuda_manual_seed(seed)
